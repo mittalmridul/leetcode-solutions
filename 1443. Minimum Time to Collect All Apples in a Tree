@@ -1,0 +1,37 @@
+class Solution {
+    public int minTime(int n, int[][] edges, List<Boolean> hasApple) {
+        List<List<Integer>> adj = new ArrayList<>();
+        for(int i=0;i<n;i++){
+            List<Integer> l = new ArrayList<>();
+            adj.add(l);
+        }
+        for(int edge[]:edges){
+            int u=edge[0];
+            int v=edge[1];
+            adj.get(u).add(v);
+            adj.get(v).add(u);
+
+        }
+        return dfs(0,-1,adj,hasApple);
+        
+    }
+
+    int dfs(int i,int par,List<List<Integer>> adj,List<Boolean> hasApple){
+        int time=0;
+        System.out.println(i);
+        List<Integer> nbr = adj.get(i);
+        for(int nb:nbr){
+            if(nb==par){
+                continue;
+            }
+            int timeFromMyChild = dfs(nb,i,adj,hasApple);
+            if(timeFromMyChild>0||hasApple.get(nb)){
+                time = time + timeFromMyChild + 2;
+
+            }
+        }
+            return time;
+
+    }
+
+}
