@@ -1,0 +1,40 @@
+class Solution {
+    public List<String> letterCombinations(String digits) {
+        List<String> ans = new ArrayList<>();
+        int n=digits.length();
+        if(n==0){
+            return ans;
+        }
+
+
+        HashMap<Integer,String> hm=new HashMap<>();
+        hm.put(2,"abc");
+        hm.put(3,"def");
+        hm.put(4,"ghi");
+        hm.put(5,"jkl");
+        hm.put(6,"mno");
+        hm.put(7,"pqrs");
+        hm.put(8,"tuv");
+        hm.put(9,"wxyz");
+
+        StringBuilder temp =new StringBuilder();
+        backtrack(0,n,digits,ans,temp,hm);
+        return ans;
+        
+    }
+
+    void backtrack(int i,int n,String digits,List<String> ans,StringBuilder temp,HashMap<Integer,String> hm){
+        if(i==n){
+            ans.add(temp.toString());
+            return;
+        }
+        int digit =digits.charAt(i)-'0';
+        String words = hm.get(digit);
+        int len=words.length();
+        for(int a=0;a<len;a++){
+            temp.append(words.charAt(a));//make a choice
+            backtrack(i+1,n,digits,ans,temp,hm);//recurse
+            temp.deleteCharAt(temp.length()-1);//undo the choice
+        }
+    }
+}
