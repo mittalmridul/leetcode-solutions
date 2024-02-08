@@ -18,7 +18,6 @@ class Solution {
 
     int dfs(int i,int par,List<List<Integer>> adj,List<Boolean> hasApple){
         int time=0;
-        System.out.println(i);
         List<Integer> nbr = adj.get(i);
         for(int nb:nbr){
             if(nb==par){
